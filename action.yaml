@@ -1,4 +1,5 @@
 name: golangci-lint
+description: Example pipeline
 on:
   push:
     tags:
