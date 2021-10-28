@@ -19,7 +19,6 @@ runs:
         pwd
         ls -al
     - name: golangci-lint
-      shell: bash
       working-directory: ${{inputs.go_project_path}}
       uses: golangci/golangci-lint-action@v2
       with:
