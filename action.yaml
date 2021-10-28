@@ -5,6 +5,9 @@ inputs:
   go_project_path:
     description: Path to go files for the repo
     required: false
+  aws_role_arn:
+    description: Role ARN to generate the token for
+    required: true
 
 runs:
   using: composite
@@ -45,7 +48,7 @@ runs:
     - name: Configure AWS Credentials
       shell: bash
       env:
-        AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+        AWS_ROLE_ARN: ${{ inputs.aws_role_arn }}
         AWS_WEB_IDENTITY_TOKEN_FILE: /tmp/awscreds
         AWS_DEFAULT_REGION: us-east-2
       run: |
