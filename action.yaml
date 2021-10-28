@@ -11,7 +11,16 @@ runs:
   steps:
     - name: Checkoug
       uses: actions/checkout@v2
+    - name: Print Location
+      shell: bash
+      working-directory: ${{inputs.go_project_path}}
+      run: |
+        echo Path is: ${{inputs.go_project_path}}
+        pwd
+        ls -al
     - name: golangci-lint
+      shell: bash
+      working-directory: ${{inputs.go_project_path}}
       uses: golangci/golangci-lint-action@v2
       with:
         # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
