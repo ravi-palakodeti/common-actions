@@ -45,6 +45,10 @@ runs:
         # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
         # skip-build-cache: true
 
+    - name: Wait
+      shell: bash
+      run: sleep 5 # initialize env variables
+
     - name: Configure AWS Credentials
       shell: bash
       env:
