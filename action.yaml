@@ -51,22 +51,22 @@ runs:
         # Optional: if set to true then the action don't cache or restore ~/.cache/go-build.
         # skip-build-cache: true
 
-    - name: Wait
-      shell: bash
-      run: sleep 5 # initialize env variables
+    # - name: Wait
+    #   shell: bash
+    #   run: sleep 5 # initialize env variables
 
-    - name: Configure AWS Credentials
-      shell: bash
-      env:
-        AWS_ROLE_ARN: ${{ inputs.aws_role_arn }}
-        AWS_WEB_IDENTITY_TOKEN_FILE: /tmp/awscreds
-        AWS_DEFAULT_REGION: us-east-2
-      run: |
-        echo variables: ${{ inputs.id_token_request }}" "${{ inputs.id_token_request_url }}"
-        echo AWS_WEB_IDENTITY_TOKEN_FILE=$AWS_WEB_IDENTITY_TOKEN_FILE >> $GITHUB_ENV
-        echo AWS_ROLE_ARN=$AWS_ROLE_ARN >> $GITHUB_ENV
-        echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION >> $GITHUB_ENV
-        curl -H "Authorization: bearer ${{ inputs.id_token_request }}" "${{ inputs.id_token_request_url }}" | jq -r '.value' > $AWS_WEB_IDENTITY_TOKEN_FILE
+    # - name: Configure AWS Credentials
+    #   shell: bash
+    #   env:
+    #     AWS_ROLE_ARN: ${{ inputs.aws_role_arn }}
+    #     AWS_WEB_IDENTITY_TOKEN_FILE: /tmp/awscreds
+    #     AWS_DEFAULT_REGION: us-east-2
+    #   run: |
+    #     echo variables: ${{ inputs.id_token_request }}" "${{ inputs.id_token_request_url }}"
+    #     echo AWS_WEB_IDENTITY_TOKEN_FILE=$AWS_WEB_IDENTITY_TOKEN_FILE >> $GITHUB_ENV
+    #     echo AWS_ROLE_ARN=$AWS_ROLE_ARN >> $GITHUB_ENV
+    #     echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION >> $GITHUB_ENV
+    #     curl -H "Authorization: bearer ${{ inputs.id_token_request }}" "${{ inputs.id_token_request_url }}" | jq -r '.value' > $AWS_WEB_IDENTITY_TOKEN_FILE
 
-    - name: Publish golangci action version
-      uses: ros-tooling/action-cloudwatch-metrics@0.0.5
+    # - name: Publish golangci action version
+    #   uses: ros-tooling/action-cloudwatch-metrics@0.0.5
