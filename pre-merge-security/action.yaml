@@ -1,4 +1,4 @@
-name: Static-Analysis
+name: Pre-Merge Security Steps
 description: Workflow to implement static code analysis
 
 inputs:
