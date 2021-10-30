@@ -4,7 +4,7 @@ description: Workflow to implement static code analysis
 inputs:
   cf_folder_path:
     description: Path to cloudformation files
-    required: true
+    required: false
   cf_files_order:
     description: order of cloudformation files to process
     required: false
