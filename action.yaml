@@ -20,13 +20,6 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Print Location
-      shell: bash
-      working-directory: ${{inputs.go_project_path}}
-      run: |
-        echo Path is: ${{inputs.go_project_path}}
-        pwd
-        ls -al
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v2
       with:
