@@ -1,0 +1,21 @@
+name: Setup-ECS-Infrastructure
+description: Workflow to setup ECS Infrastructure for an application
+
+inputs:
+  load_balancer_name:
+    description: Name of the Load Balancer
+    required: false
+  aws_region:
+    description: AWS region to setup the environment
+    required: false
+    default: us-east-2
+
+runs:
+  using: composite  
+  steps:
+    - name: Create ECS Service Infrastructure
+      shell: bash
+      run: |
+        aws elbv2 create-load-balancer \
+          --name ${{ inputs.load_balancer_name }} \
+          --region ${{ inputs.aws_region }}
