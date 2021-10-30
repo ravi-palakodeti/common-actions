@@ -1,0 +1,20 @@
+name: Static-Analysis
+description: Workflow to implement static code analysis
+
+inputs:
+  cf_folder_path:
+    description: Path to cloudformation files
+    required: true
+  cf_files_order:
+    description: order of cloudformation files to process
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Cloudformation Deploy
+      shell: bash
+      run: |
+        echo cloudformation will be deployed here

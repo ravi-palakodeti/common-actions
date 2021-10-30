@@ -1,5 +1,5 @@
-name: golangci-lint
-description: Example pipeline
+name: Static-Analysis
+description: Workflow to implement static code analysis
 
 inputs:
   go_project_path:
