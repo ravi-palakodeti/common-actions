@@ -4,10 +4,10 @@ description: Workflow to implement static code analysis
 inputs:
   cf_folder_path:
     description: Path to cloudformation files
-    required: false
-  cf_files_order:
+    required: true
+  cf_file_path:
     description: order of cloudformation files to process
-    required: false
+    required: true
 
 runs:
   using: composite
@@ -18,3 +18,16 @@ runs:
       shell: bash
       run: |
         echo cloudformation will be deployed here
+#     - name: Generate CF File
+#       working-directory: cdk
+#       shell: bash
+#       run: |
+#        yarn
+#        yarn cdk synth -q -o ../configs/cdk
+#     - name: cloudformation guard
+#       shell: bash
+#       run: |
+#         cat ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
+#         curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/aws-cloudformation/cloudformation-guard/main/install-guard.sh | sh
+#         PATH=$PATH:~/.guard/bin/
+#         cfn-guard validate -r basic.rules -d ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
