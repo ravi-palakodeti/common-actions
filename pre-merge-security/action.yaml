@@ -27,10 +27,10 @@ runs:
     #       run: |
     #        yarn
     #        yarn cdk synth -q -o ../configs/cdk
-    - name: cloudformation guard
-      shell: bash
-      run: |
-        cat ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
-        curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/aws-cloudformation/cloudformation-guard/main/install-guard.sh | sh
-        PATH=$PATH:~/.guard/bin/
-        cfn-guard validate -r ${{ inputs.cf_folder_path}}/${{ inputs.cf_rules_path }} -d ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
+    # - name: cloudformation guard
+    #   shell: bash
+    #   run: |
+    #     cat ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
+    #     curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/aws-cloudformation/cloudformation-guard/main/install-guard.sh | sh
+    #     PATH=$PATH:~/.guard/bin/
+    #     cfn-guard validate -r ${{ inputs.cf_folder_path}}/${{ inputs.cf_rules_path }} -d ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
