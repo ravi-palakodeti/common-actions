@@ -26,7 +26,8 @@ runs:
           shell: bash
           run: |
            yarn
-           yarn cdk synth -q -o ../configs/cdk
+           mkdir tmp
+           yarn cdk synth -q -o tmp
     - name: cloudformation guard
       shell: bash
       run: |
