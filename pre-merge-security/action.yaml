@@ -33,10 +33,10 @@ runs:
       shell: bash
       run: |
         sudo apt-get install jq
-        if [[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
-          echo "True"
-        else
+        if ![[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
           echo "False"
+        else
+          echo "True"
         fi
   
 #   using: composite
