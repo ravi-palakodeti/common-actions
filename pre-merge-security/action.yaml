@@ -31,7 +31,7 @@ runs:
         ls -l
     - name: evaluate opa
       shell: bash
-      run: opa eval --format pretty -i welcome-api.template.json -d policy.rego "data"
+      run: ./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data"
   
 #   using: composite
 #   steps:
