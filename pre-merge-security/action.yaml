@@ -34,9 +34,10 @@ runs:
       run: |
         sudo apt-get install jq
         if ![[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
-          echo "False - reverse"
+          echo "Policy Check Failed - Fail Pipeline"
+          exit 1
         else
-          echo "True - reverse"
+          echo "Policy Check Passed"
         fi
   
 #   using: composite
