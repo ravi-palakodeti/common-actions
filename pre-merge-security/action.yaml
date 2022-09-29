@@ -24,6 +24,7 @@ runs:
         chmod +x ./opa
         ./opa version
     - name: cdk synth
+      shell: bash
       run: |
         cdk synth -q -o .
         ls -l
