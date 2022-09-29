@@ -17,21 +17,36 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Cloudformation Deploy
+    - name: Install OPA
       shell: bash
       run: |
-        echo cloudformation will be deployed here
-        - name: Generate CF File
-          working-directory: cdk
-          shell: bash
-          run: |
-           yarn
-           mkdir tmp
-           yarn cdk synth -q -o tmp
-    - name: cloudformation guard
-      shell: bash
+        curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_linux_amd64
+        chmod +x ./opa
+        ./opa version
+    - name: cdk synth
       run: |
-        cat ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
-        curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/aws-cloudformation/cloudformation-guard/main/install-guard.sh | sh
-        PATH=$PATH:~/.guard/bin/
-        cfn-guard validate -r ${{ inputs.cf_folder_path}}/${{ inputs.cf_rules_path }} -d ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
+        cdk synth -q -o .
+        ls -l
+  
+#   using: composite
+#   steps:
+#     - name: Checkout
+#       uses: actions/checkout@v2
+#     - name: Cloudformation Deploy
+#       shell: bash
+#       run: |
+#         echo cloudformation will be deployed here
+#         - name: Generate CF File
+#           working-directory: cdk
+#           shell: bash
+#           run: |
+#            yarn
+#            mkdir tmp
+#            yarn cdk synth -q -o tmp
+#     - name: cloudformation guard
+#       shell: bash
+#       run: |
+#         cat ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
+#         curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/aws-cloudformation/cloudformation-guard/main/install-guard.sh | sh
+#         PATH=$PATH:~/.guard/bin/
+#         cfn-guard validate -r ${{ inputs.cf_folder_path}}/${{ inputs.cf_rules_path }} -d ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
