@@ -26,7 +26,8 @@ runs:
     - name: cdk synth
       shell: bash
       run: |
-        cdk synth -q -o .
+        yarn
+        yarn cdk synth -q -o .
         ls -l
   
 #   using: composite
