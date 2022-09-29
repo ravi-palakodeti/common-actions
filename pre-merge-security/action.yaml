@@ -30,11 +30,10 @@ runs:
         yarn cdk synth -q -o .
         ls -l
     - name: evaluate opa
-      uses: sergeysova/jq-action@v2
-      with:
-        cmd: ./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq policy.allow
-#       shell: bash
-#       run: ./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data"
+      shell: bash
+      run: |
+        apt-get install jq
+        ./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq
   
 #   using: composite
 #   steps:
