@@ -32,7 +32,7 @@ runs:
     - name: evaluate opa
       shell: bash
       run: |
-        apt-get install jq
+        sudo apt-get install jq
         ./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq
   
 #   using: composite
