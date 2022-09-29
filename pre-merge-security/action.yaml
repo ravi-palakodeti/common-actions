@@ -30,6 +30,7 @@ runs:
         yarn cdk synth -q -o .
         ls -l
     - name: evaluate opa
+      shell: bash
       run: opa eval --format pretty -i welcome-api.template.json -d policy.rego "data"
   
 #   using: composite
