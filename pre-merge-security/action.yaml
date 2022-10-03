@@ -15,7 +15,7 @@ runs:
     - name: Install OPA
       shell: bash
       run: |
-        ls -l
+        curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_linux_amd64
         chmod +x ./opa
         ./opa version
     - name: cdk synth
@@ -28,9 +28,9 @@ runs:
       shell: bash
       run: |
         echo ===
-        echo response is $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy.rego "data" | jq .)
+        echo response is $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy/sast.rego "data" | jq )
         echo ===
-        if [[ $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy.rego "data" | jq .policy.allow) = true ]]; then
+        if [[ $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy/sast.rego "data" | jq .policy.allow) = true ]]; then
         # if [[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
           echo "Policy Check Passed"
         else
