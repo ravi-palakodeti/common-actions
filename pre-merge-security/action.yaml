@@ -1,15 +1,9 @@
-name: Pre-Merge Security Steps
+name: Pre-Merge Code Analysis
 description: Workflow to implement static code analysis
 
 inputs:
-  cf_folder_path:
-    description: Path to cloudformation files
-    required: true
-  cf_file_path:
-    description: order of cloudformation files to process
-    required: true
-  cf_rules_path:
-    description: path to the ruleset file
+  cf_template_path:
+    description: path to the api templae json
     required: true
 
 runs:
@@ -33,32 +27,10 @@ runs:
       shell: bash
       run: |
         sudo apt-get install jq
-        if [[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
+        if [[ $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy.rego "data" | jq .policy.allow) = true ]]; then
+        # if [[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
           echo "Policy Check Passed"
         else
           echo "Policy Check Failed - Fail Pipeline"
           exit 1
         fi
-  
-#   using: composite
-#   steps:
-#     - name: Checkout
-#       uses: actions/checkout@v2
-#     - name: Cloudformation Deploy
-#       shell: bash
-#       run: |
-#         echo cloudformation will be deployed here
-#         - name: Generate CF File
-#           working-directory: cdk
-#           shell: bash
-#           run: |
-#            yarn
-#            mkdir tmp
-#            yarn cdk synth -q -o tmp
-#     - name: cloudformation guard
-#       shell: bash
-#       run: |
-#         cat ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
-#         curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/aws-cloudformation/cloudformation-guard/main/install-guard.sh | sh
-#         PATH=$PATH:~/.guard/bin/
-#         cfn-guard validate -r ${{ inputs.cf_folder_path}}/${{ inputs.cf_rules_path }} -d ${{ inputs.cf_folder_path}}/${{ inputs.cf_file_path }}
