@@ -15,6 +15,7 @@ runs:
     - name: Install OPA
       shell: bash
       run: |
+        ls -l
         chmod +x ./opa
         ./opa version
     - name: cdk synth
