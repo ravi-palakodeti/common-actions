@@ -26,7 +26,9 @@ runs:
     - name: evaluate opa
       shell: bash
       run: |
-        sudo apt-get install jq
+        echo ===
+        echo path is ${{ inputs.cf_template_path}}
+        echo ===
         if [[ $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy.rego "data" | jq .policy.allow) = true ]]; then
         # if [[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
           echo "Policy Check Passed"
