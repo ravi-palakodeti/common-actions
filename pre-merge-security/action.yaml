@@ -28,7 +28,7 @@ runs:
       shell: bash
       run: |
         echo ===
-        echo path is ${{ inputs.cf_template_path}}
+        echo response is $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy.rego "data" | jq )
         echo ===
         if [[ $(./opa eval --format pretty -i ${{ inputs.cf_template_path}} -d policy.rego "data" | jq .policy.allow) = true ]]; then
         # if [[ $(./opa eval --format pretty -i welcome-api.template.json -d policy.rego "data" | jq .policy.allow) = true ]]; then
