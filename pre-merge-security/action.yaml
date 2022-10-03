@@ -5,6 +5,7 @@ inputs:
   cf_template_path:
     description: path to the api templae json
     required: true
+    default: 'welcome-api.template.json'
 
 runs:
   using: composite
